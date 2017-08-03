@@ -1,0 +1,21 @@
+.navbar.navbar-default.navbar-fixed-top.navbar-inverse
+  .container
+    .navbar-header
+      = link_to "Michelada.Io", "https://michelada.io/",class: "navbar-brand",:data => { :confirm => "Estas a punto de salir de la pagina actual\n                     ¿Estas seguro?"}
+      %button.navbar-toggle{"data-target" => "#navbar-main", "data-toggle" => "collapse", :type => "button"}
+    #navbar-main.navbar-collapse.collapse
+      %ul.nav.navbar-nav
+        %li
+          %a{:href => "/brands"} Marcas
+        %li
+          %a{:href => "/products"} Productos
+      %ul.nav.navbar-nav.navbar-right
+        %li.dropdown
+          %a#download.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            =current_user.username
+            %span.caret
+          %ul.dropdown-menu{"aria-labelledby" => "download"}
+            %li
+              = link_to "Mi Cuenta", edit_user_registration_path
+            %li
+              = link_to "Salir", destroy_user_session_path, :method => :delete              

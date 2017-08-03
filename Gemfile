@@ -55,6 +55,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #Gemas Agregadas por usuario
 gem 'devise' #Gestion de sesion y cuentas de usuarios
-gem 'jquery-rails', '~> 4.1', '>= 4.1.1'
+gem 'jquery-rails'
+gem 'jquery-turbolinks'
 gem 'twitter-bootstrap-rails'
-gem "therubyracer"
+gem 'therubyracer'
+gem 'haml'
+gem 'haml-rails'
+
