@@ -61,4 +61,4 @@ gem 'twitter-bootstrap-rails'
 gem 'therubyracer'
 gem 'haml'
 gem 'haml-rails'
-
+gem 'will_paginate', '~> 3.1.0'
