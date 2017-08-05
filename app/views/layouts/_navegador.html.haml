@@ -6,16 +6,19 @@
     #navbar-main.navbar-collapse.collapse
       %ul.nav.navbar-nav
         %li
+          %a{:href => "/"} Mision
+        %li
           %a{:href => "/brands"} Marcas
         %li
           %a{:href => "/products"} Productos
-      %ul.nav.navbar-nav.navbar-right
-        %li.dropdown
-          %a#download.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-            =current_user.username
-            %span.caret
-          %ul.dropdown-menu{"aria-labelledby" => "download"}
-            %li
-              = link_to "Mi Cuenta", edit_user_registration_path
-            %li
-              = link_to "Salir", destroy_user_session_path, :method => :delete              
+      -if current_user.present?
+        %ul.nav.navbar-nav.navbar-right
+          %li.dropdown
+            %a#download.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+              =current_user.username
+              %span.caret
+            %ul.dropdown-menu{"aria-labelledby" => "download"}
+              %li
+                = link_to "Mi Cuenta", edit_user_registration_path
+              %li
+                = link_to "Salir", destroy_user_session_path, :method => :delete              
