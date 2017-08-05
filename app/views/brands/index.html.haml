@@ -1,21 +1,72 @@
-.page-header
-  %h1=t '.title', :default => Brand.model_name.human.pluralize.titleize
-%table.table.table-striped
-  %thead
-    %tr
-      %th= Brand.human_attribute_name(:id)
-      %th= Brand.human_attribute_name(:name)
-      %th= Brand.human_attribute_name(:created_at)
-      %th=t '.actions', :default => t("helpers.actions")
-  %tbody
-    - @brands.each do |brand|
+.row
+  .col-md-1.text-right{style: "text-align: right;padding-right: 0px;"}
+    =# button_to new_brand_path,method: :get, :class => 'btn btn-primary' do
+    %button.btn.btn-primary.btn-lg.h2{"data-target" => "#new_brands", "data-toggle" => "modal", :type => "button"}
+      %span.glyphicon.glyphicon-plus{"aria-hidden" => "true"}
+  .col-md-11{style: "padding-top: 0.7%"}
+    %h1 Marcas
+%hr
+.col-md-4
+  %table.table.table-striped.table-bordered
+    %thead
       %tr
-        %td= link_to brand.id, brand_path(brand)
-        %td= brand.name
-        %td=l brand.created_at
-        %td
-          = link_to t('.show', :default => t("helpers.links.show")), brand_path(brand), :class => 'btn btn-default btn-xs'
-          = link_to t('.edit', :default => t("helpers.links.edit")), edit_brand_path(brand), :class => 'btn btn-default btn-xs'
-          = link_to t('.destroy', :default => t("helpers.links.destroy")), brand_path(brand), :method => :delete, :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-xs btn-danger'
-  =will_paginate @brands
-= link_to t('.new', :default => t("helpers.links.new")), new_brand_path, :class => 'btn btn-primary'
+        %th= Brand.human_attribute_name(:id)
+        %th Nombre
+        -#%th= Brand.human_attribute_name(:created_at)
+        %th Acciones Disponibles
+    %tbody
+      - @brands.each do |brand|
+        %tr
+          %td= link_to brand.id, brand_path(brand)
+          %td= brand.name
+          -#%td=l brand.created_at
+          %td
+            =# link_to Ver, brand_path(brand), :class => 'btn btn-default btn-xs'
+            .col-md-3.col-md-offset-2
+              =# button_to edit_brand_path(brand),method: :get, :class => 'btn btn-primary btn-block' do
+              %button.btn.btn-primary{"data-target" => "#editar_marca_#{brand.id}", "data-toggle" => "modal", :type => "button"}
+                %span.glyphicon.glyphicon-pencil{"aria-hidden" => "true"}
+            .col-md-3
+              = button_to brand_path(brand), :method => :delete, :data => { :confirm => "Estas realmente seguro de eliminar '#{brand.name}'" }, :class => 'btn btn-danger' do
+                %span.glyphicon.glyphicon-remove{"aria-hidden" => "true"}
+    =will_paginate @brands
+
+#new_brands.modal.fade{"aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog.modal-sm{:role => "document"}
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        %h4#myModalLabel.modal-title Nueva Marca
+      .modal-body
+        =form_for Brand.new, html: {class: "form form-horizontal brand " } do |f|
+          .form-group
+            = f.label :name,value: "Nombre", class: 'control-label col-lg-3'
+            .col-lg-9
+              = f.text_field :name, class: 'form-control', required: true
+            = f.error_span(:name)
+          .form-group
+            .col-lg-offset-2.col-lg-10{style: "text-align: right"}
+              = link_to "Cancelar", brands_path, :class => 'btn btn-default'
+              = f.submit "Crear",class: 'btn btn-primary'
+              
+- @brands.each do |brand|
+  .modal.fade{"aria-labelledby" => "myModalLabel", :role => "dialog", id: "editar_marca_#{brand.id}",:tabindex => "-1"}
+    .modal-dialog.modal-sm{:role => "document"}
+      .modal-content
+        .modal-header
+          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+            %span{"aria-hidden" => "true"} ×
+          %h4#myModalLabel.modal-title Editando Marca
+        .modal-body
+          = form_for brand, html: { class: "form form-horizontal brand" } do |f|
+            .form-group
+              = f.label :name,value: "Nombre", class: 'control-label col-lg-3'
+              .col-lg-9
+                = f.text_field :name, class: 'form-control', required: true
+              = f.error_span(:name)
+            .form-group
+              .col-lg-offset-2.col-lg-10{style: "text-align: right;"}
+                = link_to "Cancelar", brands_path, :class => 'btn btn-default'
+                = f.submit "Guardar",class: 'btn btn-primary'
+        

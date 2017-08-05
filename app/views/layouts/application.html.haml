@@ -8,8 +8,8 @@
 		%link{"data-turbolinks-track" => "reload", :href => "https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css", :rel => "stylesheet"}/
 		= javascript_include_tag 'application', 'data-turbolinks-track': 'false'
 	%body
+		=render "layouts/navegador"
 		%p.notice= notice
 		%p.alert= alert
-		=render "layouts/navegador"
 		.container
 			= yield

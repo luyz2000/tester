@@ -7,7 +7,7 @@
   .form-group
     = f.label :brand_id, class: 'control-label col-lg-2'
     .col-lg-10
-      = f.text_field :brand_id, class: 'form-control', required: true
+      = f.collection_select :brand_id, Brand.order(:name),:id,:name, class: 'form-control',default: "Escoge una marca", required: true
     = f.error_span(:brand_id)
   .form-group
     = f.label :description, class: 'control-label col-lg-2'
